@@ -6,10 +6,9 @@ fi
 if [[ -z "$KAFKA_ADVERTISED_PORT" ]]; then
     export KAFKA_ADVERTISED_PORT=$(docker port `hostname` $KAFKA_PORT | sed -r "s/.*:(.*)/\1/g")
 fi
-if [[ -z "$KAFKA_BROKER_ID" ]]; then
-    # By default auto allocate broker ID
-    export KAFKA_BROKER_ID=-1
-fi
+
+export KAFKA_BROKER_ID="$DOCKERCLOUD_STACK_NAME.$DOCKERCLOUD_CONTAINER_HOSTNAME"
+
 if [[ -z "$KAFKA_LOG_DIRS" ]]; then
     export KAFKA_LOG_DIRS="/kafka/kafka-logs-$HOSTNAME"
 fi
