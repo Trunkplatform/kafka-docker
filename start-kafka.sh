@@ -39,6 +39,9 @@ done
 # remove broker.id
 sed -i.bak '/^broker.id=/d' /opt/kafka_2.11-0.10.0.0/config/server.properties
 
+# make topic to be able to deleted for testing
+sed '$ a delete.topic.enable=true' /opt/kafka_2.11-0.10.0.0/config/server.properties
+
 KAFKA_PID=0
 
 # see https://medium.com/@gchudnov/trapping-signals-in-docker-containers-7a57fdda7d86#.bh35ir4u5
