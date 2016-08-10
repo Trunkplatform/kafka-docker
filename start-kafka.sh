@@ -40,7 +40,7 @@ done
 sed -i.bak '/^broker.id=/d' /opt/kafka_2.11-0.10.0.0/config/server.properties
 
 # make topic to be able to deleted for testing
-sed '$ a delete.topic.enable=true' /opt/kafka_2.11-0.10.0.0/config/server.properties
+echo "delete.topic.enable=true" >> /opt/kafka_2.11-0.10.0.0/config/server.properties
 
 KAFKA_PID=0
 
