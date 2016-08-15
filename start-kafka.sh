@@ -19,10 +19,7 @@ if [[ -n "$KAFKA_HEAP_OPTS" ]]; then
     unset KAFKA_HEAP_OPTS
 fi
 
-# if [[ -z "$KAFKA_ADVERTISED_HOST_NAME" && -n "$HOSTNAME_COMMAND" ]]; then
-#     export KAFKA_ADVERTISED_HOST_NAME=$(eval $HOSTNAME_COMMAND)
-# fi
-export HOST=`grep $HOSTNAME /etc/hosts | awk '{print $1}'`
+export KAFKA_ADVERTISED_HOST_NAME=$DOCKERCLOUD_CONTAINER_HOSTNAME
 
 for VAR in `env`
 do
@@ -40,7 +37,6 @@ done
 # remove broker.id
 sed -i.bak '/^broker.id=/d' /opt/kafka_2.11-0.10.0.0/config/server.properties
 echo "delete.topic.enable=true" >> /opt/kafka_2.11-0.10.0.0/config/server.properties
-echo "advertised.host.name=${HOST}" >> /opt/kafka_2.11-0.10.0.0/config/server.properties
 
 
 KAFKA_PID=0
