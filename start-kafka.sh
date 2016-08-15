@@ -22,7 +22,6 @@ fi
 # if [[ -z "$KAFKA_ADVERTISED_HOST_NAME" && -n "$HOSTNAME_COMMAND" ]]; then
 #     export KAFKA_ADVERTISED_HOST_NAME=$(eval $HOSTNAME_COMMAND)
 # fi
-export KAFKA_ADVERTISED_HOST_NAME = $DOCKERCLOUD_CONTAINER_FQDN
 
 for VAR in `env`
 do
@@ -39,6 +38,9 @@ done
 
 # remove broker.id
 sed -i.bak '/^broker.id=/d' /opt/kafka_2.11-0.10.0.0/config/server.properties
+echo "delete.topic.enable=true" >> /opt/kafka_2.11-0.10.0.0/config/server.properties
+echo "advertised.host.name=${DOCKERCLOUD_CONTAINER_FQDN}" >> /opt/kafka_2.11-0.10.0.0/config/server.properties
+
 
 KAFKA_PID=0
 
