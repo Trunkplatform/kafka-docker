@@ -36,8 +36,6 @@ done
 
 # remove broker.id
 sed -i.bak '/^broker.id=/d' /opt/kafka_2.11-0.10.0.0/config/server.properties
-echo "delete.topic.enable=true" >> /opt/kafka_2.11-0.10.0.0/config/server.properties
-
 
 KAFKA_PID=0
 
