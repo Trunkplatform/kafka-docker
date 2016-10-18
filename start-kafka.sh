@@ -19,7 +19,7 @@ if [[ -n "$KAFKA_HEAP_OPTS" ]]; then
     unset KAFKA_HEAP_OPTS
 fi
 
-export KAFKA_ADVERTISED_HOST_NAME=`ip addr | grep inet | grep 10.42 | tail -1 | awk '{print $2}' | awk -F\/ '{print $1}'`
+export KAFKA_ADVERTISED_HOST_NAME=$(ip addr | grep inet | grep 10.42 | tail -1 | awk '{print $2}' | awk -F\/ '{print $1}')
 
 for VAR in `env`
 do
