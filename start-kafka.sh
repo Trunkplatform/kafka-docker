@@ -19,7 +19,7 @@ if [[ -n "$KAFKA_HEAP_OPTS" ]]; then
     unset KAFKA_HEAP_OPTS
 fi
 
-export KAFKA_ADVERTISED_HOST_NAME=$DOCKERCLOUD_CONTAINER_HOSTNAME
+export KAFKA_ADVERTISED_HOST_NAME=`curl -s http://rancher-metadata/latest/self/container/primary_ip`
 
 for VAR in `env`
 do
