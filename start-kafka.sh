@@ -32,12 +32,10 @@ do
   fi
 done
 
-# remove broker.id
+# remove broker.id and advertised.host.name, enable delete topic
 sed -i.bak '/^broker.id=/d' /opt/kafka_2.11-0.10.0.0/config/server.properties
 sed -i.bak '/^advertised.host.name=/d' /opt/kafka_2.11-0.10.0.0/config/server.properties
 echo "delete.topic.enable=true" >> /opt/kafka_2.11-0.10.0.0/config/server.properties
-RANCHER_CONTAINER_IP_ADDRESS=$(ip addr | grep inet | grep 10.42 | tail -1 | awk '{print $2}' | awk -F\/ '{print $1}')
-echo "advertised.host.name=$RANCHER_CONTAINER_IP_ADDRESS" >> /opt/kafka_2.11-0.10.0.0/config/server.properties
 
 KAFKA_PID=0
 
@@ -52,6 +50,10 @@ term_handler() {
   exit
 }
 
+# add container ip address as the advertised host name
+echo ">>>>>current container IP:$(ip addr | grep inet | grep 10.42 | tail -1 | awk '{print $2}' | awk -F\/ '{print $1}')" 
+RANCHER_CONTAINER_IP_ADDRESS=$(ip addr | grep inet | grep 10.42 | tail -1 | awk '{print $2}' | awk -F\/ '{print $1}')
+echo "advertised.host.name=$RANCHER_CONTAINER_IP_ADDRESS" >> /opt/kafka_2.11-0.10.0.0/config/server.properties
 
 # Capture kill requests to stop properly
 trap "term_handler" SIGHUP SIGINT SIGTERM
