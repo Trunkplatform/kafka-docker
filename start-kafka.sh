@@ -36,8 +36,8 @@ done
 sed -i.bak '/^broker.id=/d' /opt/kafka_2.11-0.10.0.0/config/server.properties
 sed -i.bak '/^advertised.host.name=.*?' /opt/kafka_2.11-0.10.0.0/config/server.properties
 echo "delete.topic.enable=true" >> /opt/kafka_2.11-0.10.0.0/config/server.properties
-KAFKA_ADVERTISED_HOST_NAME=$(ip addr | grep inet | grep 10.42 | tail -1 | awk '{print $2}' | awk -F\/ '{print $1}')
-echo "advertised.host.name=$KAFKA_ADVERTISED_HOST_NAME" >> /opt/kafka_2.11-0.10.0.0/config/server.properties
+RANCHER_CONTAINER_IP_ADDRESS=$(ip addr | grep inet | grep 10.42 | tail -1 | awk '{print $2}' | awk -F\/ '{print $1}')
+echo "advertised.host.name=$RANCHER_CONTAINER_IP_ADDRESS" >> /opt/kafka_2.11-0.10.0.0/config/server.properties
 
 KAFKA_PID=0
 
